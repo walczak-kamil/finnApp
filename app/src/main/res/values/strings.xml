@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Finnapp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="homePage">HOME PAGE   </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="all_symbols">All Symbols</string>
+    <string name="favourites">Favourites</string>
+    <string name="companies">Companies</string>
+    <string name="calculator">Currencies Calculator</string>
+    <string name="PLindexes">Polish Indexes</string>
+</resources>

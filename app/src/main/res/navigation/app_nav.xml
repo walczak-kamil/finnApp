@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.finnapp.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_indexes"
+            app:destination="@id/indexes" />
+        <action
+            android:id="@+id/action_homeFragment_to_favourites"
+            app:destination="@id/favourites" />
+        <action
+            android:id="@+id/action_homeFragment_to_indexesPL"
+            app:destination="@id/indexesPL" />
+        <action
+            android:id="@+id/action_homeFragment_to_companies"
+            app:destination="@id/companies" />
+        <action
+            android:id="@+id/action_homeFragment_to_calculator"
+            app:destination="@id/calculator" />
+    </fragment>
+    <fragment
+        android:id="@+id/indexes"
+        android:name="com.example.finnapp.Indexes"
+        android:label="fragment_indexes"
+        tools:layout="@layout/fragment_indexes" >
+        <action
+            android:id="@+id/action_indexes_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favourites"
+        android:name="com.example.finnapp.favourites"
+        android:label="fragment_favourites"
+        tools:layout="@layout/fragment_favourites" >
+        <action
+            android:id="@+id/action_favourites_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/companies"
+        android:name="com.example.finnapp.companies"
+        android:label="fragment_companies"
+        tools:layout="@layout/fragment_companies" >
+        <action
+            android:id="@+id/action_companies_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/calculator"
+        android:name="com.example.finnapp.calculator"
+        android:label="fragment_calculator"
+        tools:layout="@layout/fragment_calculator" >
+        <action
+            android:id="@+id/action_calculator_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/indexesPL"
+        android:name="com.example.finnapp.indexesPL"
+        android:label="fragment_indexes_p_l"
+        tools:layout="@layout/fragment_indexes_p_l" >
+        <action
+            android:id="@+id/action_indexesPL_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+</navigation>
