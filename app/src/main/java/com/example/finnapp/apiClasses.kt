@@ -1,10 +1,14 @@
 package com.example.finnapp
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import java.util.*
+import kotlin.collections.ArrayList
 
 // NEWS
-class NewsContainer(){
-    val news_lst = mutableListOf<News>()
+@Parcelize
+class NewsContainer(): Parcelable{
+    val news_lst = ArrayList<News>()
 
     fun add(to_add: News){
         news_lst.add(to_add)
@@ -26,7 +30,7 @@ data class News(val category: String,
 
 // SYMBOLS
 class SymbolsContainer(){
-    val symbols_lst = mutableListOf<Symbol>()
+    val symbols_lst = ArrayList<Symbol>()
 
     fun add(to_add: Symbol){
         symbols_lst.add(to_add)
@@ -49,7 +53,7 @@ data class Symbol(
 
 // COMPANY PROFILE
 class CompanyContainer(){
-    val company_lst = mutableListOf<CompanyInfo>()
+    val company_lst = ArrayList<CompanyInfo>()
 
     fun add(to_add: CompanyInfo){
         company_lst.add(to_add)
@@ -65,7 +69,7 @@ data class CompanyInfo(val name: String,
 }
 // CALCULATOR TO:DO
 class CurrencyPairsContainer(){
-    val currency_lst = mutableListOf<CurrencyPair>()
+    val currency_lst = ArrayList<CurrencyPair>()
 
     fun add(to_add: CurrencyPair){
         currency_lst.add(to_add)

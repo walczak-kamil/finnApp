@@ -11,4 +11,24 @@
     <string name="companies">Companies</string>
     <string name="calculator">Currencies Calculator</string>
     <string name="PLindexes">Polish Indexes</string>
+    <string name="enter_amount">Enter amount</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="convert">Convert</string>
+    <string name="news_img">news img</string>
+    <string name="header">header</string>
+    <string name="category">category</string>
+    <string name="summary">summary</string>
+    <string-array name="skroty_walut">
+        <item>USD </item>
+        <item>EUR</item>
+        <item>JPY</item>
+        <item>GBP </item>
+        <item>AUD </item>
+        <item>CAD </item>
+        <item>CHF </item>
+        <item>PLN</item>
+        <item>SEK </item>
+        <item>NZD </item>
+    </string-array>
 </resources>

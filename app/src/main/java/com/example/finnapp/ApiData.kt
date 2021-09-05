@@ -56,8 +56,8 @@ class ApiData {
         return news_lst
     }
 
-    fun getSymbols(market: String = "all"): MutableList<StockSymbol>{
-        val random_symbols = mutableListOf<StockSymbol>()
+    fun getSymbols(market: String = "all"): ArrayList<StockSymbol>{
+        val random_symbols = ArrayList<StockSymbol>()
         if (market == "all"){
             val exchange_lst = listOf("US", "SS", "HK", "BR", "TO", "L", "AX", "WA")
             for (exchange in exchange_lst) {
@@ -85,13 +85,14 @@ class ApiData {
         return random_symbols
     }
 
-    fun getPairs(symbol: String = "USD"): Boolean{
+    fun getPairs(symbol: String): Any? {
         val response_pairs = apiClient.forexRates(symbol)
-        val main_currency = response_pairs.base
+        //val main_currency = response_pairs.base
         val pairs = response_pairs.quote
-        Log.d("currency", main_currency.toString() + pairs.toString() )
+        Log.d("currency", pairs.toString())
+//        Log.d("pln", pairs!!["PLN"].toString() )
 
-        return true
+        return pairs
     }
     fun getPrice(symbol: String): Quote{
         return apiClient.quote(symbol)

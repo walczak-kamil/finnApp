@@ -1,5 +1,6 @@
 package com.example.finnapp
 
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import android.util.Log
 import android.util.Pair
 import androidx.annotation.RequiresApi
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -45,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
         //START JOB
         val job = CoroutineScope(Dispatchers.IO).launch {
 
@@ -54,18 +57,26 @@ class MainActivity : AppCompatActivity() {
 
             //symbols and postprocessing
             val pl_symbols = api.getSymbols("pl")
-
-
-
+            pl_symbols.toString()
+//            val paris = api.getPairs("PLN")
+//            Log.d("pairs", paris.toString())
             Log.d("news_size", news_cont.size().toString())
 //            Log.d("symbols_size", symbols_cont.size().toString())
-            val xd = api.getPairs("USD")
+            //val xd = api.getPairs("USD")
+
+            val bundle = Bundle()
+            bundle.putParcelable("news", news_cont)
+            val frag = HomeFragment.newInstance(news_cont)
+
+            Log.d("bundle test", news_cont.toString())
         }
 
         job.start()
+
         if(job.isCompleted){
             job.cancel()
         }
+
 
 
         listener = NavController.OnDestinationChangedListener{controller, destination, arguments ->
@@ -77,6 +88,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 
     override fun onResume() {
         super.onResume()
