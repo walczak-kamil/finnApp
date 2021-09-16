@@ -13,7 +13,21 @@
         <ListView
             android:id="@+id/home_lv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginBottom="3dp"
+            android:padding="2dp"
+            android:paddingStart="2dp"
+            android:paddingLeft="2dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="2dp" />
     </LinearLayout>
 
     <WebView

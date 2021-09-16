@@ -56,7 +56,6 @@ class favourites : Fragment() {
 
         val lvData: ListView = view.findViewById(R.id.favourites_lv)
         lvData.setAdapter(adapter)
-//        view.text sset on lcik
 
         return view
     }

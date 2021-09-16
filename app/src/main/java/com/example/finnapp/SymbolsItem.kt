@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 
-class SymbolsAdapter(var ctx: Context, var resources: Int, var items: ArrayList<CompanyItem>):
-        ArrayAdapter<CompanyItem>(ctx, resources, items){
+class SymbolsAdapter(var ctx: Context, var resources: Int, var items: ArrayList<SymbolsItem>):
+        ArrayAdapter<SymbolsItem>(ctx, resources, items){
 
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -21,7 +21,7 @@ class SymbolsAdapter(var ctx: Context, var resources: Int, var items: ArrayList<
         val price = view.findViewById<TextView>(R.id.stock_price)
         val currency = view.findViewById<TextView>(R.id.stock_currency)
 
-        var mItem: CompanyItem = items[position]
+        var mItem: SymbolsItem = items[position]
 
         symbol.text = mItem.symbol
         descritption.text = mItem.desc
@@ -32,8 +32,5 @@ class SymbolsAdapter(var ctx: Context, var resources: Int, var items: ArrayList<
     }
 }
 
-class SymbolsItem(val symbol:String, val desc: String,  val price: Int, val currency:String) {
-//    val header
-//    val summary
-//    val url = url
+class SymbolsItem(val symbol:String, val desc: String, val currency:String, val price: Float = 0.0f) {
 }

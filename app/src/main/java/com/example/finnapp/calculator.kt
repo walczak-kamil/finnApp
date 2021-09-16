@@ -58,16 +58,9 @@ class calculator : Fragment() {
 
         exchange = 1.5
 
-//        if(inputAmount.editText.toString() != null){
-//            inputMoney = inputAmount.toString().toDouble()
-//        }
         currency1 = spinner1.selectedItem.toString()
         Log.d("selected", currency1.toString())
-//        val onItemSelectedListener = spinner1.onItemSelectedListener
-//        val onItemSelectedListener2 = spinner2.onItemSelectedListener
 
-//        currency1 = onItemSelectedListener
-//        currency2 = onItemSelectedListener2.toString()
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
@@ -102,11 +95,6 @@ class calculator : Fragment() {
 
     override fun onResume() {
         super.onResume()
-//        val currency1 = spinner1.selectedItem.toString()
-//        val currency2 = spinner2.selectedItem.toString()
-//        val amount = enterAmount.text.toString().toDouble()
-//        Log.d("calc info", currency1 + currency2 + amount.toString())
-
     }
     companion object {
         /**

@@ -1,19 +1,16 @@
 package com.example.finnapp
 
-import android.annotation.SuppressLint
+import android.os.Build
 import android.util.Log
-import java.time.format.DateTimeFormatter.ISO_INSTANT
+import androidx.annotation.RequiresApi
 import io.finnhub.api.apis.DefaultApi
 import io.finnhub.api.infrastructure.ApiClient
-import io.finnhub.api.models.CompanyProfile2
-import io.finnhub.api.models.MarketNews
-import io.finnhub.api.models.Quote
-import io.finnhub.api.models.StockSymbol
-import kotlinx.coroutines.delay
+import io.finnhub.api.models.*
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.random.Random.Default.nextInt
+import kotlin.math.round
 
 class ApiData {
 
@@ -23,8 +20,7 @@ class ApiData {
     }
     private val apiClient = DefaultApi()
 
-
-    //GET functions (NEWS, SYMBOLS, PRICE, CURRENCY PAIRS)
+    //GET functions (NEWS, SYMBOLS, PRICE, COMPANIES, CHART DATA)
     fun getNews(counter: Int, newsCategory: String = "general"): NewsContainer{
         val news_lst = NewsContainer()
         val response_news = apiClient.marketNews(newsCategory,0)
@@ -53,7 +49,6 @@ class ApiData {
                             if (cnt == 0){
                                 break
                             }
-
             }
             else
             {
@@ -108,25 +103,54 @@ class ApiData {
 
     fun getPairs(symbol: String): Any? {
         val response_pairs = apiClient.forexRates(symbol)
-        //val main_currency = response_pairs.base
         val pairs = response_pairs.quote
         Log.d("currency", pairs.toString())
-//        Log.d("pln", pairs!!["PLN"].toString() )
 
         return pairs
     }
+
     fun getPrice(symbol: String): Quote{
         return apiClient.quote(symbol)
     }
 
-    fun getCompanies(): ArrayList<CompanyProfile2> {
-        val symbols = this.getSymbols(12)
+    fun getCompanies(counter:Int): ArrayList<CompanyProfile2> {
+        val symbols = this.getSymbols(70)
+        var cnt = counter
         val list = ArrayList<CompanyProfile2>()
+
         for (symbol in symbols){
-            list.add(apiClient.companyProfile2(symbol.symbol,null,null))
+            val response = apiClient.companyProfile2(symbol.symbol,null,null)
+            if (response.country != null &&
+                    response.finnhubIndustry != null &&
+                    response.logo != "" &&
+                    response.name != null &&
+                    response.ticker != null &&
+                    response.weburl != ""
+                    ){
+                        list.add(response)
+                        cnt--
+            }
+
+            if(cnt == 0){
+                break
+            }
         }
         return list
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getChartData(): StockCandles {
+        val endDate = LocalDate.now()
+        Log.d("date", endDate.toString())
+        val quotes = apiClient.stockCandles("AAPL", "D", 1577910983, 1591852249)
+        return quotes
+    }
 
+
+}
+
+fun Float.round(decimals: Int): Float {
+    var multiplier = 1.0
+    repeat(decimals) { multiplier *= 10 }
+    return (round(this * multiplier) / multiplier).toFloat()
 }

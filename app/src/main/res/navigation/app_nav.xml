@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.finnapp.HomeFragment"
-        android:label="fragment_home"
+        android:label="News"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_indexes"
@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/indexes"
         android:name="com.example.finnapp.Indexes"
-        android:label="fragment_indexes"
+        android:label="Indexes"
         tools:layout="@layout/fragment_indexes" >
         <action
             android:id="@+id/action_indexes_to_homeFragment"
@@ -38,7 +38,7 @@
     <fragment
         android:id="@+id/favourites"
         android:name="com.example.finnapp.favourites"
-        android:label="fragment_favourites"
+        android:label="Favourite Indexes"
         tools:layout="@layout/fragment_favourites" >
         <action
             android:id="@+id/action_favourites_to_homeFragment"
@@ -47,7 +47,7 @@
     <fragment
         android:id="@+id/companies"
         android:name="com.example.finnapp.companies"
-        android:label="fragment_companies"
+        android:label="Companies"
         tools:layout="@layout/fragment_companies" >
         <action
             android:id="@+id/action_companies_to_homeFragment"
@@ -56,7 +56,7 @@
     <fragment
         android:id="@+id/calculator"
         android:name="com.example.finnapp.calculator"
-        android:label="fragment_calculator"
+        android:label="Currency Calculator"
         tools:layout="@layout/fragment_calculator" >
         <action
             android:id="@+id/action_calculator_to_homeFragment"
@@ -65,10 +65,19 @@
     <fragment
         android:id="@+id/indexesPL"
         android:name="com.example.finnapp.indexesPL"
-        android:label="fragment_indexes_p_l"
+        android:label="Indexes PL"
         tools:layout="@layout/fragment_indexes_p_l" >
         <action
             android:id="@+id/action_indexesPL_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chartFragment"
+        android:name="com.example.finnapp.Chart"
+        android:label="Chart"
+        tools:layout="@layout/fragment_chart" >
+        <action
+            android:id="@+id/action_chart_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

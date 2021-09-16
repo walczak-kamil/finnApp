@@ -2,6 +2,7 @@ package com.example.finnapp
 
 import android.os.Bundle
 import android.os.StrictMode
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -45,17 +46,27 @@ class Indexes : Fragment() {
 
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
+
         val api = ApiData()
 
         val symbols = api.getSymbols(10)
 
-        val indexesData = ArrayList<CompanyItem>()
+        val indexesData = ArrayList<SymbolsItem>()
 
         for (i in symbols){
-            val temp = CompanyItem(i.symbol!!, i.description!!, 10, i.currency!!)
-            indexesData.add(temp)
+            val price = api.getPrice(i.symbol.toString())
+
+            if(price == null){
+                val temp = SymbolsItem(i.symbol!!, i.description!!, i.currency!!)
+                indexesData.add(temp)
+            }
+            else {
+                val temp = SymbolsItem(i.symbol!!, i.description!!, i.currency!!, price.c!!.round(2))
+                indexesData.add(temp)
+            }
         }
 
+        // custom list adapter
         val adapter = SymbolsAdapter(
                 requireContext(),
                 R.layout.symbol_item,
@@ -63,6 +74,10 @@ class Indexes : Fragment() {
 
         val lvData: ListView = view.findViewById(R.id.indexes_lv)
         lvData.setAdapter(adapter)
+
+        lvData.setOnItemClickListener { parent, view, position, id ->
+            Log.d("clicked index: ", adapter.getItem(position)?.symbol.toString())
+        }
 
         return view
     }

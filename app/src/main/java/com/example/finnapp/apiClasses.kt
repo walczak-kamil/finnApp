@@ -47,7 +47,6 @@ data class Symbol(
             val price: Double,
             val is_fav: Boolean,
             val currency: String,
-//            val country: String
 ){
 }
 
@@ -67,16 +66,3 @@ data class CompanyInfo(val name: String,
                           val industry: String){
 
 }
-// CALCULATOR TO:DO
-class CurrencyPairsContainer(){
-    val currency_lst = ArrayList<CurrencyPair>()
-
-    fun add(to_add: CurrencyPair){
-        currency_lst.add(to_add)
-    }
-}
-data class CurrencyPair(
-        val fist: String,
-        val second: String,
-        val course: Double
-)

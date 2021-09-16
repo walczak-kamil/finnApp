@@ -2,6 +2,7 @@ package com.example.finnapp
 
 import android.os.Bundle
 import android.os.StrictMode
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -43,29 +44,31 @@ class companies : Fragment() {
                 container,
                 false)
 
-
-
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
+
         val api = ApiData()
-////        // news
-        val comp_cont = api.getCompanies()
-        val companiesData = ArrayList<String>()
+        val comp_cont = api.getCompanies(10)
+
+        val companiesData = ArrayList<CompanyItem>()
+
         for (i in comp_cont){
-//            val temp = NewsItem(i.headline, i.summary, i.img_url, i.source)
-            companiesData.add(i.finnhubIndustry.toString())
+            val temp = CompanyItem(i.name!!, i.ticker!!, i.logo!!, i.finnhubIndustry!!, i.country!!)
+            companiesData.add(temp)
         }
 
-
-        val adapter = ArrayAdapter<String>(
+        val adapter = CompanyAdapter(
                 requireContext(),
-                android.R.layout.simple_list_item_1,
+                R.layout.company_item,
                 companiesData)
-
 
         val lvData: ListView = view.findViewById(R.id.companies_lv)
         lvData.setAdapter(adapter)
-//        view.text sset on lcik
+
+        lvData.setOnItemClickListener { parent, view, position, id ->
+            Log.d("clicked company: ", adapter.getItem(position)?.name.toString())
+        }
+
         return view
     }
 

@@ -32,8 +32,6 @@ class HomeFragment : Fragment() {
         if (savedInstanceState != null) {
             param = savedInstanceState.getParcelable(ARG_PARAM)
         }
-//        val api = ApiData()
-
 
         Log.d("got data", param.toString())
     }
@@ -48,31 +46,22 @@ class HomeFragment : Fragment() {
                 container,
                 false)
         val data = arguments?.get(ARG_PARAM)
-//
+
         Log.d("data", data.toString())
+
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
+
         val api = ApiData()
-////        // news
         val news_cont = api.getNews(10).news_lst
-//
+
         val lvData: ListView = view.findViewById(R.id.home_lv)
-////        Log.d("got data 1", param.toString())
-//        // list of data
         val homeData = ArrayList<NewsItem>()
-        for (i in news_cont){
-            val temp = NewsItem(i.headline, i.summary, i.img_url, i.source)
+
+        for (i in news_cont) {
+            val temp = NewsItem(i.headline, i.summary, i.img_url, i.date.split(" ")[0], i.url)
             homeData.add(temp)
         }
-//        for(item in news_cont.news_lst){
-//            homeData.add(item.headline + ':' + item.url)
-//        }
-//        val newsData = ArrayList<NewsItem>()
-//
-//        for (item in news_cont.news_lst){
-//
-//        }
-
 
         val adapter = NewsAdapter(
                 requireContext(),
@@ -88,13 +77,13 @@ class HomeFragment : Fragment() {
 //            browser.settings.javaScriptEnabled = true
 //            browser.webViewClient = WebViewClient()
 //            browser.loadUrl(url)
-            Log.d("clicked", id.toString())
+            Log.d("clicked", adapter.getItem(position)?.article_url.toString())
         }
 
-//        view.text sset on lcik
         return view
-    }
 
+
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of

@@ -25,19 +25,18 @@ class NewsAdapter(var ctx: Context, var resources: Int, var items: ArrayList<New
         val img = view.findViewById<ImageView>(R.id.newsImg)
         val header = view.findViewById<TextView>(R.id.header)
         val summary = view.findViewById<TextView>(R.id.summary)
+        val info = view.findViewById<TextView>(R.id.source)
 
         var mItem: NewsItem = items[position]
 
         Picasso.get().load(mItem.url).into(img)
         header.text = mItem.header
         summary.text = mItem.summary
+        info.text = mItem.date
 
         return view
     }
         }
 
-class NewsItem(val header:String, val summary: String,  val url:String, val article:String) {
-//    val header
-//    val summary
-//    val url = url
+class NewsItem(val header:String, val summary: String,  val url:String, val date:String, val article_url:String) {
 }

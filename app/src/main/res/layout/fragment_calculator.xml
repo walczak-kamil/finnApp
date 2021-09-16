@@ -21,8 +21,7 @@
         android:id="@+id/spinner2"
         android:layout_width="136dp"
         android:layout_height="32dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginRight="11dp"
+        android:layout_marginEnd="30dp"
         android:entries="@array/skroty_walut"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +42,7 @@
         android:id="@+id/spinner1"
         android:layout_width="136dp"
         android:layout_height="33dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="30dp"
         android:entries="@array/skroty_walut"
         app:layout_constraintBottom_toBottomOf="@+id/spinner2"
         app:layout_constraintStart_toStartOf="parent" />
@@ -69,9 +68,10 @@
 
     <ImageButton
         android:id="@+id/buttonSwitch"
-        android:layout_width="84dp"
+        android:layout_width="0dp"
         android:layout_height="33dp"
         android:src="@android:drawable/stat_notify_sync_noanim"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/spinner1"
         app:layout_constraintEnd_toStartOf="@+id/spinner2"
         app:layout_constraintStart_toEndOf="@+id/spinner1"

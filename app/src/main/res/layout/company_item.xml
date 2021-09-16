@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="14dp">
+
+
+    <ImageView
+        android:id="@+id/compImg"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="@string/news_img"
+        android:layout_marginEnd="14dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/comp_symbol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_toRightOf="@+id/compImg"
+        android:text="symbol"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/comp_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/compImg"
+        android:text="name"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/comp_industry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="40dp"
+        android:layout_toRightOf="@+id/compImg"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:text="industry"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/comp_country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="70dp"
+        android:layout_toRightOf="@+id/compImg"
+        android:text="country" />
+</RelativeLayout>

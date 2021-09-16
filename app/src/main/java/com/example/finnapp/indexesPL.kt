@@ -2,6 +2,7 @@ package com.example.finnapp
 
 import android.os.Bundle
 import android.os.StrictMode
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,14 +21,10 @@ private const val ARG_PARAM2 = "param2"
  */
 class indexesPL : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
         }
     }
 
@@ -41,28 +38,40 @@ class indexesPL : Fragment() {
                 container,
                 false)
 
-        val plData = ArrayList<CompanyItem>()
-
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
         val api = ApiData()
         val stock_cont = api.getSymbols(15,"pl")
 
+        val pl_data = ArrayList<SymbolsItem>()
+
         for (i in stock_cont){
-            val temp = CompanyItem(i.symbol!!, i.description!!, 10, i.currency!!)
-            plData.add(temp)
+//            val price = api.getPrice(i.symbol.toString())
+
+//            if(price == null){
+//                val temp = SymbolsItem(i.symbol!!, i.description!!, i.currency!!)
+//                plData.add(temp)
+//            }
+//            else {
+                val temp = SymbolsItem(i.symbol!!, i.description!!, i.currency!!)//, price.c!!.round(2))
+                pl_data.add(temp)
+//            }
         }
 
+        //custom adapter to list
         val adapter = SymbolsAdapter(
                 requireContext(),
                 R.layout.symbol_item,
-                plData)
+                pl_data)
 
 
         val lvData: ListView = view.findViewById(R.id.indexespl_lv)
         lvData.setAdapter(adapter)
-//        view.text sset on lcik
+
+        lvData.setOnItemClickListener { parent, view, position, id ->
+            Log.d("clicked PLindex: ", adapter.getItem(position)?.symbol.toString())
+        }
         return view
     }
 
@@ -80,8 +89,8 @@ class indexesPL : Fragment() {
         fun newInstance(param1: String, param2: String) =
             indexesPL().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+//                    putString(ARG_PARAM1, param1)
+//                    putString(ARG_PARAM2, param2)
                 }
             }
     }

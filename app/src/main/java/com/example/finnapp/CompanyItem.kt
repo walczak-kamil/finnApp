@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 
 class CompanyAdapter(var ctx: Context, var resources: Int, var items: ArrayList<CompanyItem>):
         ArrayAdapter<CompanyItem>(ctx, resources, items){
@@ -16,24 +18,23 @@ class CompanyAdapter(var ctx: Context, var resources: Int, var items: ArrayList<
         val layoutInflater = LayoutInflater.from(ctx)
         val view = layoutInflater.inflate(resources, null)
 
-        val symbol = view.findViewById<TextView>(R.id.stock_symbol)
-        val descritption = view.findViewById<TextView>(R.id.stock_description)
-        val price = view.findViewById<TextView>(R.id.stock_price)
-        val currency = view.findViewById<TextView>(R.id.stock_currency)
+        val img = view.findViewById<ImageView>(R.id.compImg)
+        val symbol = view.findViewById<TextView>(R.id.comp_symbol)
+        val name = view.findViewById<TextView>(R.id.comp_name)
+        val ind = view.findViewById<TextView>(R.id.comp_industry)
+        val country = view.findViewById<TextView>(R.id.comp_country)
 
         var mItem: CompanyItem = items[position]
 
+        Picasso.get().load(mItem.logo).into(img)
         symbol.text = mItem.symbol
-        descritption.text = mItem.desc
-        price.text = mItem.price.toString()
-        currency.text = mItem.currency
+        name.text = mItem.name
+        ind.text = mItem.industry
+        country.text = "Country: " + mItem.country
 
         return view
     }
 }
 
-class CompanyItem(val symbol:String, val desc: String, val price: Int, val currency:String) {
-//    val header
-//    val summary
-//    val url = url
+class CompanyItem(val name: String, val symbol: String, val logo: String, val industry: String, val country: String) {
 }
