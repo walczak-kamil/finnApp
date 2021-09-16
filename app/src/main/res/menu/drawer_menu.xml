@@ -20,6 +20,9 @@
         <item
             android:id="@+id/indexesPL"
             android:title="@string/PLindexes" />
+        <item
+            android:id="@+id/chartFragment"
+            android:title="@string/chart" />
 
 
     </group>

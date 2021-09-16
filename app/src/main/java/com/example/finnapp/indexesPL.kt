@@ -1,11 +1,11 @@
 package com.example.finnapp
 
 import android.os.Bundle
+import android.os.StrictMode
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.ListView
 
 // TODO: Rename parameter arguments, choose names that match
@@ -41,16 +41,22 @@ class indexesPL : Fragment() {
                 container,
                 false)
 
-        val plData = ArrayList<String>()
-        plData.add("a-pl")
-        plData.add("b-pl")
-        plData.add("c-pl")
-        plData.add("d-pl")
+        val plData = ArrayList<CompanyItem>()
 
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
 
-        val adapter = ArrayAdapter<String>(
+        val api = ApiData()
+        val stock_cont = api.getSymbols(15,"pl")
+
+        for (i in stock_cont){
+            val temp = CompanyItem(i.symbol!!, i.description!!, 10, i.currency!!)
+            plData.add(temp)
+        }
+
+        val adapter = SymbolsAdapter(
                 requireContext(),
-                android.R.layout.simple_list_item_1,
+                R.layout.symbol_item,
                 plData)
 
 

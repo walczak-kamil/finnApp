@@ -53,10 +53,10 @@ class MainActivity : AppCompatActivity() {
 
             val api = ApiData()
             // news
-            val news_cont = api.getNews()
+            val news_cont = api.getNews(1)
 
             //symbols and postprocessing
-            val pl_symbols = api.getSymbols("pl")
+            val pl_symbols = api.getSymbols(10,"pl")
             pl_symbols.toString()
 //            val paris = api.getPairs("PLN")
 //            Log.d("pairs", paris.toString())
@@ -80,12 +80,12 @@ class MainActivity : AppCompatActivity() {
 
 
         listener = NavController.OnDestinationChangedListener{controller, destination, arguments ->
-            if(destination.id == R.id.homeFragment){
-                supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.design_default_color_primary_dark)))
-            }else if (destination.id == R.id.indexes){
-                supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.design_default_color_error)))
-//                setContentView(R.layout.fragment_indexes)
-            }
+//            if(destination.id == R.id.homeFragment){
+//                supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.design_default_color_primary_dark)))
+//            }else if (destination.id == R.id.indexes){
+//                supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.design_default_color_error)))
+////                setContentView(R.layout.fragment_indexes)
+//            }
         }
     }
 

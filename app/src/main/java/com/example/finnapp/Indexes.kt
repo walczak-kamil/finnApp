@@ -1,11 +1,11 @@
 package com.example.finnapp
 
 import android.os.Bundle
+import android.os.StrictMode
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.ListView
 
 // TODO: Rename parameter arguments, choose names that match
@@ -43,15 +43,22 @@ class Indexes : Fragment() {
                 container,
                 false)
 
-        val indexesData = ArrayList<String>()
-        indexesData.add("index1")
-        indexesData.add("index2")
-        indexesData.add("index3")
-        indexesData.add("index4")
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+        val api = ApiData()
 
-        val adapter = ArrayAdapter<String>(
+        val symbols = api.getSymbols(10)
+
+        val indexesData = ArrayList<CompanyItem>()
+
+        for (i in symbols){
+            val temp = CompanyItem(i.symbol!!, i.description!!, 10, i.currency!!)
+            indexesData.add(temp)
+        }
+
+        val adapter = SymbolsAdapter(
                 requireContext(),
-                android.R.layout.simple_list_item_1,
+                R.layout.symbol_item,
                 indexesData)
 
         val lvData: ListView = view.findViewById(R.id.indexes_lv)

@@ -5,12 +5,14 @@ import android.util.Log
 import java.time.format.DateTimeFormatter.ISO_INSTANT
 import io.finnhub.api.apis.DefaultApi
 import io.finnhub.api.infrastructure.ApiClient
+import io.finnhub.api.models.CompanyProfile2
 import io.finnhub.api.models.MarketNews
 import io.finnhub.api.models.Quote
 import io.finnhub.api.models.StockSymbol
 import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.random.Random.Default.nextInt
 
 class ApiData {
@@ -23,9 +25,10 @@ class ApiData {
 
 
     //GET functions (NEWS, SYMBOLS, PRICE, CURRENCY PAIRS)
-    fun getNews(newsCategory: String = "general"): NewsContainer{
+    fun getNews(counter: Int, newsCategory: String = "general"): NewsContainer{
         val news_lst = NewsContainer()
         val response_news = apiClient.marketNews(newsCategory,0)
+        var cnt = counter
 
         for (news in response_news){
             if(news.category != "" &&
@@ -46,6 +49,11 @@ class ApiData {
 
                             val to_add = News(category, date, headline, img_url, source, summary, url)
                             news_lst.add(to_add)
+                            cnt--
+                            if (cnt == 0){
+                                break
+                            }
+
             }
             else
             {
@@ -56,8 +64,10 @@ class ApiData {
         return news_lst
     }
 
-    fun getSymbols(market: String = "all"): ArrayList<StockSymbol>{
+    fun getSymbols(counter: Int, market: String = "all"): ArrayList<StockSymbol>{
         val random_symbols = ArrayList<StockSymbol>()
+        var cnt = counter
+
         if (market == "all"){
             val exchange_lst = listOf("US", "SS", "HK", "BR", "TO", "L", "AX", "WA")
             for (exchange in exchange_lst) {
@@ -68,10 +78,17 @@ class ApiData {
                             symbol.symbol != "" &&
                             symbol.type != ""){
                                 random_symbols.add(symbol)
+                        cnt--
+                        if(cnt == 0){
+                            break
+                        }
                     }
                     else{
                         continue
                     }
+                }
+                if(cnt == 0){
+                    break
                 }
             }
         }
@@ -79,6 +96,10 @@ class ApiData {
                 val response_symbols = apiClient.stockSymbols("WA", null, null, null)
                 for (symbol in response_symbols){
                     random_symbols.add(symbol)
+                    cnt--
+                    if (cnt == 0){
+                        break
+                    }
                 }
         }
 
@@ -96,6 +117,15 @@ class ApiData {
     }
     fun getPrice(symbol: String): Quote{
         return apiClient.quote(symbol)
+    }
+
+    fun getCompanies(): ArrayList<CompanyProfile2> {
+        val symbols = this.getSymbols(12)
+        val list = ArrayList<CompanyProfile2>()
+        for (symbol in symbols){
+            list.add(apiClient.companyProfile2(symbol.symbol,null,null))
+        }
+        return list
     }
 
 

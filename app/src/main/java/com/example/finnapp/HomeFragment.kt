@@ -1,24 +1,15 @@
 package com.example.finnapp
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
+import android.os.StrictMode
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.*
 import android.webkit.WebViewClient
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.BaseAdapter
 import android.widget.ListView
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_home.*
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,26 +39,31 @@ class HomeFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         val view =  inflater.inflate(
-            R.layout.fragment_home,
-            container,
-            false)
+                R.layout.fragment_home,
+                container,
+                false)
         val data = arguments?.get(ARG_PARAM)
 //
         Log.d("data", data.toString())
-//        val api = ApiData()
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+        val api = ApiData()
 ////        // news
-//        val news_cont = api.getNews()
+        val news_cont = api.getNews(10).news_lst
 //
         val lvData: ListView = view.findViewById(R.id.home_lv)
 ////        Log.d("got data 1", param.toString())
 //        // list of data
-        val homeData = ArrayList<String>()
-        homeData.add("Pfizer Covid booster shots will likely be ready Sept. 20, but Moderna may be delayed, Fauci says:https://www.cnbc.com/2021/09/05/pfizer-covid-booster-shots-likely-ready-sept-20-anthony-fauci-says.html")
+        val homeData = ArrayList<NewsItem>()
+        for (i in news_cont){
+            val temp = NewsItem(i.headline, i.summary, i.img_url, i.source)
+            homeData.add(temp)
+        }
 //        for(item in news_cont.news_lst){
 //            homeData.add(item.headline + ':' + item.url)
 //        }
@@ -78,20 +74,21 @@ class HomeFragment : Fragment() {
 //        }
 
 
-        val adapter = ArrayAdapter<String>(
-            requireContext(),
-            android.R.layout.simple_list_item_1,
-            homeData)
+        val adapter = NewsAdapter(
+                requireContext(),
+                R.layout.news_item,
+                homeData)
 
         lvData.setAdapter(adapter)
 
 
         lvData.setOnItemClickListener { parent, view, position, id ->
-            val element = adapter.getItem(position)
-            val url = element!!.split(":")[1]
-            browser.settings.javaScriptEnabled = true
-            browser.webViewClient = WebViewClient()
-            browser.loadUrl(url)
+//            val element = adapter.getItem(position)
+//            val url = element!!.split(":")[1]
+//            browser.settings.javaScriptEnabled = true
+//            browser.webViewClient = WebViewClient()
+//            browser.loadUrl(url)
+            Log.d("clicked", id.toString())
         }
 
 //        view.text sset on lcik
@@ -109,7 +106,7 @@ class HomeFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(news_lst : NewsContainer) {
+        fun newInstance(news_lst: NewsContainer) {
             val args = Bundle()
             args.putParcelable(ARG_PARAM, news_lst)
             val fragment = HomeFragment()

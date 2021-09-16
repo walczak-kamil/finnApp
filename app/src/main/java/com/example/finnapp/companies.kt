@@ -1,12 +1,14 @@
 package com.example.finnapp
 
 import android.os.Bundle
+import android.os.StrictMode
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import io.finnhub.api.models.CompanyProfile2
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,17 +43,24 @@ class companies : Fragment() {
                 container,
                 false)
 
-        val compData = ArrayList<String>()
-        compData.add("a-comp")
-        compData.add("b-comp")
-        compData.add("c-comp")
-        compData.add("d-comp")
+
+
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+        val api = ApiData()
+////        // news
+        val comp_cont = api.getCompanies()
+        val companiesData = ArrayList<String>()
+        for (i in comp_cont){
+//            val temp = NewsItem(i.headline, i.summary, i.img_url, i.source)
+            companiesData.add(i.finnhubIndustry.toString())
+        }
 
 
         val adapter = ArrayAdapter<String>(
                 requireContext(),
                 android.R.layout.simple_list_item_1,
-                compData)
+                companiesData)
 
 
         val lvData: ListView = view.findViewById(R.id.companies_lv)

@@ -19,6 +19,7 @@
     <string name="header">header</string>
     <string name="category">category</string>
     <string name="summary">summary</string>
+    <string name="chart">chart</string>
     <string-array name="skroty_walut">
         <item>USD </item>
         <item>EUR</item>
